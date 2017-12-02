@@ -1,7 +1,9 @@
-package com.ooad.a21point;
+package com.ooad.a21point.ActivitiesAndViews;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.ooad.a21point.R;
 
 public class MainActivity extends Activity {
 
