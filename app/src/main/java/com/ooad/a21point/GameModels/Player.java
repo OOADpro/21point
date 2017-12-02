@@ -30,6 +30,10 @@ public class Player extends Person {
             mChip = 0;
     }
 
+    void winchip(int bet){
+        mChip+=bet;
+    }
+
     //初始化手牌
     void initialHand(Pile pile){
         mHands.clear();

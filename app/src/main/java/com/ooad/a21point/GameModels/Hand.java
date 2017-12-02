@@ -81,7 +81,7 @@ public class Hand {
             int cardPoint1 = mCards.get(0).getmPoint();
             int cardPoint2 = mCards.get(1).getmPoint();
             if((cardPoint1 == 1 && cardPoint2 >= 11)||(cardPoint1 >= 11 && cardPoint2 == 1)){
-                return -1;
+                return Integer.MAX_VALUE;
             }
         }
         //将所有A当做11分计算
