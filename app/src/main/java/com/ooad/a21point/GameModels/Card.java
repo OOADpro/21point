@@ -6,29 +6,38 @@ package com.ooad.a21point.GameModels;
 
 public class Card {
     //花色
+    public static int HEART = 1; //红桃
+    public static int SPADE = 2; //黑桃
+    public static int CLUB = 3; //草花
+    public static int DIAMOND = 4; //方块
     private int mColor;
     //点数
     private int mPoint;
     //明牌还是暗牌
     private boolean mOpenOrClosed;
 
+    public Card(int color, int point){
+        //默认黑桃2
+        mColor = 2;
+        mPoint = 2;
+        //默认明牌
+        mOpenOrClosed = true;
+        if (color <= 4 && color >= 1)
+            mColor = color;
+        if (0 < point && point < 14)
+            mPoint = point;
+    }
 
     public  int     getmColor() {
         return mColor;
     }
-    public void    setmColor(int mColor) {
-        this.mColor = mColor;
-    }
     public int     getmPoint() {
         return mPoint;
-    }
-    public void    setmPoint(int mPoint) {
-        this.mPoint = mPoint;
     }
     public boolean ismOpenOrClosed() {
         return mOpenOrClosed;
     }
-    public void    setmOpenOrClosed(boolean mOpenOrClosed) {
+    protected void setmOpenOrClosed(boolean mOpenOrClosed) {
         this.mOpenOrClosed = mOpenOrClosed;
     }
 
