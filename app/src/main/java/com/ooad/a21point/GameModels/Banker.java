@@ -10,12 +10,12 @@ public class Banker extends Person {
     //手牌
     private ArrayList<Hand> mHands;
 
-    public Banker() {
+    Banker() {
         mHands = new ArrayList<>();
     }
 
     //初始化手牌
-    protected void initialHand(Pile pile){
+    void initialHand(Pile pile){
         mHands.clear();
         Hand hand = new Hand(pile);
         hand.getAnOpenCard();

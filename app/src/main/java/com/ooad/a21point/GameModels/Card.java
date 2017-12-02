@@ -16,7 +16,7 @@ public class Card {
     //明牌还是暗牌
     private boolean mOpenOrClosed;
 
-    public Card(int color, int point){
+    Card(int color, int point){
         //默认黑桃2
         mColor = 2;
         mPoint = 2;
@@ -28,16 +28,16 @@ public class Card {
             mPoint = point;
     }
 
-    public  int     getmColor() {
+    public int getmColor() {
         return mColor;
     }
-    public int     getmPoint() {
+    public int getmPoint() {
         return mPoint;
     }
     public boolean isOpenOrClosed() {
         return mOpenOrClosed;
     }
-    protected void setOpenOrClosed(boolean mOpenOrClosed) {
+    void setOpenOrClosed(boolean mOpenOrClosed) {
         this.mOpenOrClosed = mOpenOrClosed;
     }
 

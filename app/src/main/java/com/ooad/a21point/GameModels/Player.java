@@ -24,14 +24,14 @@ public class Player extends Person {
     }
 
     //下赌注
-    protected void makeBet(int bet){
+    void makeBet(int bet){
         mChip -= bet;
         if (mChip < 0)
             mChip = 0;
     }
 
     //初始化手牌
-    protected void initialHand(Pile pile){
+    void initialHand(Pile pile){
         mHands.clear();
         Hand hand = new Hand(pile);
         hand.getAnOpenCard();
@@ -44,7 +44,7 @@ public class Player extends Person {
 
 
     //分牌
-    protected void split(Pile pile){
+    void split(Pile pile){
         if (mSplitFlag){
             Card card = mHands.get(0).getAllCards().get(0);
             Hand hand = new Hand(pile);
@@ -55,6 +55,15 @@ public class Player extends Person {
         }
     }
 
+    //是否停牌
+    public boolean isStand(){
+        for (Hand hand:
+             mHands) {
+            if (!hand.isStand())
+                return false;
+        }
+        return true;
+    }
     //获取手牌
     @Override
     public ArrayList<Hand> getHands(){

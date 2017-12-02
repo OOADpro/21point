@@ -9,24 +9,27 @@ import java.util.Collections;
 
 public class Pile  {
 
-    ArrayList<Card> card=new ArrayList<Card>();
-    private int location=0;
+    private ArrayList<Card> mCard = new ArrayList<>();
+    private int mLocation =0;
 
     public Pile() {
         //初始化牌组中所有牌的点数与花色
         for(int i=0;i<13;i++)
             for(int j=0;j<4;j++)
-                card.add(new Card(j+1,i+1));
+                mCard.add(new Card(j+1,i+1));
 
     }
 
     public Card getCard(){
-        location=location+1;
-        return card.get(location-1);
+        mLocation = mLocation +1;
+        return mCard.get(mLocation -1);
     }
 
-    public void reset(){
-        Collections.shuffle(card);//洗牌
-        location=0;
+
+
+    void reset(){
+        Collections.shuffle(mCard);//洗牌
+        mLocation =0;
+
     }
 }
