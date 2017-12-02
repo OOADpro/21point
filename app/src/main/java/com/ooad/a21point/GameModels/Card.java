@@ -6,10 +6,10 @@ package com.ooad.a21point.GameModels;
 
 public class Card {
     //花色
-    public static int HEART = 1; //红桃
-    public static int SPADE = 2; //黑桃
-    public static int CLUB = 3; //草花
-    public static int DIAMOND = 4; //方块
+    public static final int HEART = 1; //红桃
+    public static final int SPADE = 2; //黑桃
+    public static final int CLUB = 3; //草花
+    public static final int DIAMOND = 4; //方块
     private int mColor;
     //点数
     private int mPoint;
