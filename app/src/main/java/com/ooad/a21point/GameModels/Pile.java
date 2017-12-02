@@ -25,8 +25,11 @@ public class Pile  {
         return mCard.get(mLocation -1);
     }
 
+
+
     void reset(){
-        Collections.shuffle(mCard);
+        Collections.shuffle(mCard);//洗牌
         mLocation =0;
+
     }
 }
