@@ -58,12 +58,19 @@ public class GameManager {
 
     }
 
-    public Person judge(Player player, Banker banker){
-        Hand phand=player.getHands().get(0);
-        Hand bhand=banker.getHands().get(0);
-        if (phand.getPoint()>bhand.getPoint()){
-            player.winchip(phand.getBet());
+    public ArrayList<Hand> judge(){
+        ArrayList<Hand> winhand=new ArrayList<>();// 新建赢家的手牌，空
+        int bpoint=mbanker.getHands().get(0).getPoint();//庄家的点数
+
+        for(Hand phand:mplayer.get(0).getHands()) {
+            int ppoint=phand.getPoint();                //闲家的点数
+            if (ppoint > bpoint) {
+                mplayer.get(0).winchip(phand.getBet()); //闲家胜利，获得相应的筹码
+                winhand.add(phand);
+            } else if (ppoint < bpoint)
+                winhand.add(mbanker.getHands().get(0));
         }
+        return winhand;
     }
 
     public void stand(Player player,Hand hand){
