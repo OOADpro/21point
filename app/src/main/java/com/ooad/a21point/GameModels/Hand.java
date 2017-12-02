@@ -34,14 +34,14 @@ public class Hand {
     //抽一张明牌
     protected void getAnOpenCard(){
         Card newCard = mPile.getCard();
-        newCard.setmOpenOrClosed(true);
+        newCard.setOpenOrClosed(true);
         mCards.add(newCard);
     }
 
     //抽一张暗牌
     protected void getAClosedCard(){
         Card newCard = mPile.getCard();
-        newCard.setmOpenOrClosed(false);
+        newCard.setOpenOrClosed(false);
         mCards.add(newCard);
     }
 
