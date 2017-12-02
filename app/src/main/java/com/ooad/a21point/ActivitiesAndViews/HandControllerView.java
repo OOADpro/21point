@@ -32,7 +32,7 @@ public class HandControllerView extends LinearLayout{
     //牌列表
     CardListView mCardListView;
 
-    public HandControllerView(Player player,Hand hand, Context context) {
+    public HandControllerView( Context context, Player player,Hand hand) {
         super(context);
         mPlayer = player;
         mHand = hand;
