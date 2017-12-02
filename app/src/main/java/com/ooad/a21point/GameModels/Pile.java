@@ -5,5 +5,5 @@ package com.ooad.a21point.GameModels;
  */
 
 public class Pile  {
-    
+
 }
