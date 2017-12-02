@@ -34,10 +34,10 @@ public class Card {
     public int     getmPoint() {
         return mPoint;
     }
-    public boolean ismOpenOrClosed() {
+    public boolean isOpenOrClosed() {
         return mOpenOrClosed;
     }
-    protected void setmOpenOrClosed(boolean mOpenOrClosed) {
+    protected void setOpenOrClosed(boolean mOpenOrClosed) {
         this.mOpenOrClosed = mOpenOrClosed;
     }
 
