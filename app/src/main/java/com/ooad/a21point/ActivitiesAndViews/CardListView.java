@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.ooad.a21point.GameModels.Card;
+import com.ooad.a21point.GameModels.Hand;
+
+import java.util.ArrayList;
 
 
 /**
@@ -12,12 +15,20 @@ import com.ooad.a21point.GameModels.Card;
  */
 
 public class CardListView extends FrameLayout{
-    //当前显示牌数量
+    //手牌数据
+    private Hand mHand;
+    //当前显示手牌数量
     private int mCardNum;
 
-    public CardListView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public CardListView(Context context) {
+        super(context);
+    }
+
+    public void init(Hand hand){
+        mHand = hand;
         mCardNum = 0;
+        removeAllViews();
+        refreshList();
     }
 
     public void addCard(Card card){
@@ -26,7 +37,14 @@ public class CardListView extends FrameLayout{
         params.leftMargin = mCardNum * 20;
         cardView.setLayoutParams(params);
         addView(cardView);
-
     }
 
+    //更新牌列表
+    public void refreshList(){
+        ArrayList<Card> cards = mHand.getAllCards();
+        while (mCardNum < cards.size()){
+            addCard(cards.get(mCardNum));
+            mCardNum++;
+        }
+    }
 }

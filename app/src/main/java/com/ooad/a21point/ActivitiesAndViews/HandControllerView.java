@@ -6,13 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.ooad.a21point.GameModels.Card;
 import com.ooad.a21point.GameModels.GameManager;
 import com.ooad.a21point.GameModels.Hand;
 import com.ooad.a21point.GameModels.Player;
 import com.ooad.a21point.R;
 
-import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by 10040 on 2017/12/2.
@@ -26,25 +27,29 @@ public class HandControllerView extends LinearLayout{
     //当前显示手牌数量
     private int mHandNum;
     //hit,stand,double按钮
+    @BindView(R.id.bt_hit)
     Button mBtHit;
+    @BindView(R.id.bt_stand)
     Button mBtStand;
+    @BindView(R.id.bt_double)
     Button mBtDouble;
     //牌列表
+    @BindView(R.id.card_list_view)
     CardListView mCardListView;
 
-    public HandControllerView( Context context, Player player,Hand hand) {
+    public HandControllerView( Context context) {
         super(context);
+        LayoutInflater.from(context).inflate(R.layout.hand_controller_view, this);
+        ButterKnife.bind(this);
+    }
+
+    public void init(Player player,Hand hand){
         mPlayer = player;
         mHand = hand;
         mHandNum = 0;
 
-        LayoutInflater.from(context).inflate(R.layout.hand_controller_view, this);
-        mBtHit = findViewById(R.id.bt_hit);
-        mBtStand = findViewById(R.id.bt_stand);
-        mBtDouble = findViewById(R.id.bt_double);
-        mCardListView = findViewById(R.id.card_list_view);
-
         initButtons();
+        mCardListView.init(mHand);
         refreshList();
     }
 
@@ -74,11 +79,7 @@ public class HandControllerView extends LinearLayout{
     }
 
     //更新牌列表
-    private void refreshList(){
-        ArrayList<Card> cards = mHand.getAllCards();
-        while (mHandNum < cards.size()){
-            mCardListView.addCard(cards.get(mHandNum));
-            mHandNum++;
-        }
+    public void refreshList() {
+        mCardListView.refreshList();
     }
 }
