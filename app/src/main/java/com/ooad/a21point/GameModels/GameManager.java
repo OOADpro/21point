@@ -51,7 +51,10 @@ public class GameManager {
     }
 
     public void hit(Player player,Hand hand){
+
         hand.getAnOpenCard();
+        while(hand.getPoint()>=21)
+            stand(player,hand);
     }
 
     public void split(Player player){
