@@ -13,9 +13,12 @@ public class Hand {
     private ArrayList<Card> mCards;
     //牌堆
     private Pile mPile;
+    //是否停牌
+    private boolean mIsStand;
 
-    protected Hand(Pile pile){
+    Hand(Pile pile){
         mPile = pile;
+        mIsStand = false;
         mCards = new ArrayList<>();
     }
 
@@ -23,34 +26,45 @@ public class Hand {
         return mBet;
     }
 
-    protected void setBet(int bet) {
+    void setBet(int bet) {
         mBet = bet;
     }
 
-    protected void doubleBet(){
+    void doubleBet(){
         mBet *= 2;
     }
 
     //抽一张明牌
-    protected void getAnOpenCard(){
+    void getAnOpenCard(){
         Card newCard = mPile.getCard();
         newCard.setOpenOrClosed(true);
         mCards.add(newCard);
     }
 
     //抽一张暗牌
-    protected void getAClosedCard(){
+    void getAClosedCard(){
         Card newCard = mPile.getCard();
         newCard.setOpenOrClosed(false);
         mCards.add(newCard);
     }
 
-    protected void addCard(Card card){
+    //停牌
+    void stand(){
+        mIsStand = true;
+    }
+
+    //是否停牌
+    public boolean isStand(){
+        return mIsStand;
+    }
+
+    //添加一张牌
+    void addCard(Card card){
         mCards.add(card);
     }
 
     //移除一张牌
-    protected void removeCard(Card card){
+    void removeCard(Card card){
         mCards.remove(card);
     }
 
