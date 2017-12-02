@@ -26,7 +26,7 @@ public class Pile  {
     }
 
     public void reset(){
-        Collections.shuffle(card);
+        Collections.shuffle(card);//洗牌
         location=0;
     }
 }
