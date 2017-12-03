@@ -32,7 +32,12 @@ public class Pile  {
 
 
     void reset(){
-        Collections.shuffle(mCard);//洗牌
+        //洗牌
+        for(int i=0;i<50;i++) {
+            int ranA = (int) (Math.random() * 52);
+            int ranB = (int) (Math.random() * 52);
+            Collections.swap(mCard,ranA,ranB);
+        }
         mLocation =0;
 
     }
