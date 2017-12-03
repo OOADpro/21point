@@ -2,6 +2,7 @@ package com.ooad.a21point.ActivitiesAndViews;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -59,15 +60,15 @@ public class MainActivity extends Activity {
                 beginNewGame();
             }
         });
-        init();
 
-        //临时，便于复制
-        mPlayerHand.setVisibility(View.VISIBLE);
-        mPlayerSplitHand.setVisibility(View.VISIBLE);
-        mBankerHand.setVisibility(View.VISIBLE);
-        mBetControllerView.setVisibility(View.VISIBLE);
-        mTvChip.setVisibility(View.VISIBLE);
-        mBtSplit.setVisibility(View.VISIBLE);
+        mBetControllerView.setVisibility(View.GONE);
+        mTvChip.setVisibility(View.GONE);
+        mPlayerHand.setVisibility(View.GONE);
+        mPlayerSplitHand.setVisibility(View.GONE);
+        mBankerHand.setVisibility(View.GONE);
+        mBtSplit.setVisibility(View.GONE);
+        mBtBegin.setVisibility(View.VISIBLE);
+        init();
     }
 
     //初始化各控件结束条件
@@ -86,7 +87,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if(mPlayer.getHands().get(0).getBet() < mPlayer.getChip()){
-                    mGameManager.split(mPlayer);
                     split();
                 }
                 else {
@@ -102,15 +102,22 @@ public class MainActivity extends Activity {
                 bankerTurn();
             }
         });
+        mPlayerSplitHand.setPlayerEnd(new Runnable() {
+            @Override
+            public void run() {
+                bankerTurn();
+            }
+        });
     }
 
     //刷新分数
     private void refreshChip(){
-        mTvChip.setText(mPlayer.getChip());
+        mTvChip.setText(String.valueOf(mPlayer.getChip()));
     }
 
     //开局新游戏
     void beginNewGame(){
+        mGameManager.init();
         mBetControllerView.init(mPlayer);
         refreshChip();
 
@@ -126,7 +133,7 @@ public class MainActivity extends Activity {
 
     //下注
     void beginNewTurn(){
-        mPlayerHand.init(mPlayer, mPlayer.getHands().get(0));
+        mPlayerHand.init(mPlayer, mPlayer.getHands().get(0),mBtSplit);
         mBankerHand.init(mGameManager.getBanker().getHand());
         refreshChip();
 
@@ -143,32 +150,39 @@ public class MainActivity extends Activity {
     void bankerTurn(){
         mGameManager.openCard(mGameManager.getBanker().getHand().getAllCards().get(1));
         mBankerHand.refreshAllCards();
-        sleep(1);
+        refreshChip();
         doAIBanker();
     }
 
     //模拟庄家
     public void doAIBanker(){
-        ArrayList<Hand> hands = mPlayer.getHands();
-        Banker banker = mGameManager.getBanker();
-        Hand bankerHand = banker.getHand();
-        int targetPoint = 0;
-        if (hands.size() == 2 && hands.get(1).getBet() > hands.get(0).getBet())
-            targetPoint = 1;
-        targetPoint = hands.get(targetPoint).getPoint();
-        while (!bankerHand.isStand() && bankerHand.getPoint() < targetPoint){
-            mGameManager.hit(banker,bankerHand);
-            mBankerHand.refreshList();
-            sleep(1);
+        bankerHit(mGameManager.getBanker().getHand());
+    }
+
+    private void bankerHit(final Hand bankerHand){
+        int point = bankerHand.getPoint();
+        if (point == Hand.BLACK_JACK || point < 17){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mGameManager.bankerHit(bankerHand);
+                    mBankerHand.refreshList();
+                    bankerHit(bankerHand);
+                }
+            },2000);
         }
-        mGameManager.stand(banker,bankerHand);
-        judge();
+        else {
+            mGameManager.bankerStand(bankerHand);
+            judge();
+        }
     }
 
     //分牌
     void split(){
         mGameManager.split(mPlayer);
-        mPlayerSplitHand.init(mPlayer,mPlayer.getHands().get(1));
+        mPlayerHand.init(mPlayer,mPlayer.getHands().get(0),mBtSplit);
+        mPlayerSplitHand.init(mPlayer,mPlayer.getHands().get(1),mBtSplit);
+        refreshChip();
 
         mPlayerSplitHand.setVisibility(View.VISIBLE);
         mBtSplit.setVisibility(View.GONE);
@@ -182,17 +196,15 @@ public class MainActivity extends Activity {
         mPlayerHand.showResult(winnerHands.contains(hands.get(0)));
         //若分牌，则显示分牌结果
         if (hands.size() == 2){
-            mPlayerHand.showResult(winnerHands.contains(hands.get(1)));
+            mPlayerSplitHand.showResult(winnerHands.contains(hands.get(1)));
         }
-        //开始新游戏
-        beginNewTurn();
-    }
 
-    private void sleep(int second){
-        try {
-            Thread.sleep(1000 * second);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //开始新游戏
+                beginNewGame();
+            }
+        },3000);
     }
 }

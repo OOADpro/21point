@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 
 public class Hand {
+    static final public int BLACK_JACK = 50;
     //赌注
     private int mBet;
     //手牌列表
@@ -73,7 +74,7 @@ public class Hand {
         return mCards;
     }
 
-    //获取最优分数,返回最优分数，若为黑杰克，则返回-1
+    //获取最优分数,返回最优分数，若为黑杰克，则返回Max
     public int getPoint(){
         int point = 0;
         //判断是否黑杰克
@@ -81,17 +82,19 @@ public class Hand {
             int cardPoint1 = mCards.get(0).getmPoint();
             int cardPoint2 = mCards.get(1).getmPoint();
             if((cardPoint1 == 1 && cardPoint2 >= 11)||(cardPoint1 >= 11 && cardPoint2 == 1)){
-                return Integer.MAX_VALUE;
+                return BLACK_JACK;
             }
         }
         //将所有A当做11分计算
         for (Card card:
              mCards) {
             int cardPoint = card.getmPoint();
-            if (cardPoint >= 10)
+            if (cardPoint > 10)
                 point += 10;
-            if (cardPoint == 1)
+            else if (cardPoint == 1)
                 point += 11;
+            else
+                point += cardPoint;
         }
         //如果爆掉，则循环找A，每个A扣除10分，除非分数已经低于21
         if (point > 21){

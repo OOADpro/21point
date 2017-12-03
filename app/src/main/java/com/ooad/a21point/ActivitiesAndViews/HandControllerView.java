@@ -1,10 +1,11 @@
 package com.ooad.a21point.ActivitiesAndViews;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
  * Created by 10040 on 2017/12/2.
  */
 
-public class HandControllerView extends LinearLayout{
+public class HandControllerView extends ConstraintLayout{
     //玩家
     private Player mPlayer;
     //手牌数据
@@ -41,21 +42,40 @@ public class HandControllerView extends LinearLayout{
     TextView mTvResult;
     //流程结束事件
     Runnable mPlayerEnd;
+    //分牌按键
+    Button mBtSplit;
 
     public HandControllerView( Context context) {
         super(context);
+        layoutInit(context);
+    }
+
+    public HandControllerView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        layoutInit(context);
+    }
+
+    public HandControllerView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        layoutInit(context);
+    }
+
+    private void layoutInit(Context context){
+
         LayoutInflater.from(context).inflate(R.layout.hand_controller_view, this);
         ButterKnife.bind(this);
         initButtons();
     }
 
-    public void init(Player player,Hand hand){
+    public void init(Player player, Hand hand, Button btSplit){
         mPlayer = player;
         mHand = hand;
+        mBtSplit = btSplit;
 
-        mBtHit.setVisibility(VISIBLE);
-        mBtDouble.setVisibility(VISIBLE);
-        mBtStand.setVisibility(VISIBLE);
+        mBtHit.setEnabled(true);
+        mBtHit.setVisibility(View.VISIBLE);
+        mBtDouble.setVisibility(View.VISIBLE);
+        mBtStand.setVisibility(View.VISIBLE);
         mTvResult.setVisibility(View.GONE);
         mCardListView.init(mHand);
         refreshList();
@@ -121,11 +141,13 @@ public class HandControllerView extends LinearLayout{
 
     //判断是否停牌
     private void isStand(){
+        mBtSplit.setVisibility(View.GONE);
         if(mHand.isStand()){
             mTvResult.setText("Stand");
-            mBtHit.setVisibility(GONE);
-            mBtDouble.setVisibility(GONE);
-            mBtStand.setVisibility(GONE);
+            mBtHit.setEnabled(false);
+            mBtHit.setVisibility(View.GONE);
+            mBtDouble.setVisibility(View.GONE);
+            mBtStand.setVisibility(View.GONE);
             mTvResult.setVisibility(View.VISIBLE);
             if (mPlayer.isStand()){
                 mPlayerEnd.run();

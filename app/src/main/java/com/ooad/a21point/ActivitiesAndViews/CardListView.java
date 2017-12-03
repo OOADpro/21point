@@ -1,6 +1,8 @@
 package com.ooad.a21point.ActivitiesAndViews;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
@@ -24,6 +26,14 @@ public class CardListView extends FrameLayout{
         super(context);
     }
 
+    public CardListView(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public CardListView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
     public void init(Hand hand){
         mHand = hand;
         mCardNum = 0;
@@ -33,8 +43,10 @@ public class CardListView extends FrameLayout{
 
     public void addCard(Card card){
         CardView cardView = new CardView(card,getContext());
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)cardView.getLayoutParams();
-        params.leftMargin = mCardNum * 20;
+//        cardView.setMaxHeight(100);
+//        cardView.setLeft(mCardNum * 20);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(150, 300);
+        params.leftMargin = 10 + mCardNum * 60;
         cardView.setLayoutParams(params);
         addView(cardView);
     }

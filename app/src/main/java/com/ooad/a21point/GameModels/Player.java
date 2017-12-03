@@ -22,7 +22,7 @@ public class Player extends Person {
     }
 
     //下赌注
-    void makeBet(int bet){
+    void takeBet(int bet){
         mChip -= bet;
         if (mChip < 0)
             mChip = 0;
@@ -66,4 +66,7 @@ public class Player extends Person {
         return  mSplitFlag;
     }
 
+    public void setSplitFlag(boolean splitFlag) {
+        mSplitFlag = splitFlag;
+    }
 }

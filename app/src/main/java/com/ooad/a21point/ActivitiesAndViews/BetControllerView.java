@@ -2,6 +2,8 @@ package com.ooad.a21point.ActivitiesAndViews;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ public class BetControllerView extends LinearLayout {
     //玩家
     private Player mPlayer;
     //下注数量显示
+    @BindView(R.id.tv_bet_num)
     TextView mTvBetNum;
     //各分值赌注选择
     @BindView(R.id.bet_10)
@@ -46,6 +49,20 @@ public class BetControllerView extends LinearLayout {
 
     public BetControllerView(Context context) {
         super(context);
+        layoutInit(context);
+    }
+
+    public BetControllerView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        layoutInit(context);
+    }
+
+    public BetControllerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        layoutInit(context);
+    }
+
+    private void layoutInit(Context context){
         LayoutInflater.from(context).inflate(R.layout.bet_controller_view,this);
         ButterKnife.bind(this);
 
@@ -55,7 +72,7 @@ public class BetControllerView extends LinearLayout {
     public void init(Player player){
         mPlayer = player;
         mBetNum = 0;
-        mTvBetNum.setText(0);
+        mTvBetNum.setText(String.valueOf(0));
     }
 
     public void setMakeBet(MakeBet makeBet){
@@ -81,7 +98,7 @@ public class BetControllerView extends LinearLayout {
                 }
                 if(mPlayer.getChip() >= mBetNum + bet){
                     mBetNum += bet;
-                    mTvBetNum.setText(mBetNum);
+                    mTvBetNum.setText(String.valueOf(mBetNum));
                 }
                 else
                     Toast.makeText(getContext(),"剩余筹码不足",Toast.LENGTH_SHORT).show();
