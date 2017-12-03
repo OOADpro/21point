@@ -41,15 +41,25 @@ public class BetControllerView extends LinearLayout {
     Button mBtMakeBet;
     //已下注数量
     int mBetNum;
+    //下注事件
+    MakeBet mMakeBet;
 
-    public BetControllerView(Context context, Player player) {
+    public BetControllerView(Context context) {
         super(context);
-        mPlayer = player;
-        mBetNum = 0;
         LayoutInflater.from(context).inflate(R.layout.bet_controller_view,this);
         ButterKnife.bind(this);
 
         initButtons();
+    }
+
+    public void init(Player player){
+        mPlayer = player;
+        mBetNum = 0;
+        mTvBetNum.setText(0);
+    }
+
+    public void setMakeBet(MakeBet makeBet){
+        mMakeBet = makeBet;
     }
 
     private void initButtons(){
@@ -85,8 +95,12 @@ public class BetControllerView extends LinearLayout {
         mBtMakeBet.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                GameManager.getManager().makebet(mPlayer,mBetNum);
+                mMakeBet.makeBet(mBetNum);
             }
         });
+    }
+
+    public interface MakeBet{
+        void makeBet(int bet);
     }
 }

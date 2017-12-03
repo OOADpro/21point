@@ -72,6 +72,11 @@ public class Player extends Person {
         }
         return true;
     }
+
+    public boolean isSplit(){
+        return  mSplitFlag;
+    }
+
     //获取手牌
     @Override
     public ArrayList<Hand> getHands(){

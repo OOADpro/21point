@@ -39,6 +39,10 @@ public class CardListView extends FrameLayout{
         addView(cardView);
     }
 
+    public void refreshAllCards(){
+        init(mHand);
+    }
+
     //更新牌列表
     public void refreshList(){
         ArrayList<Card> cards = mHand.getAllCards();

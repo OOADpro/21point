@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ooad.a21point.GameModels.GameManager;
 import com.ooad.a21point.GameModels.Hand;
@@ -24,8 +26,6 @@ public class HandControllerView extends LinearLayout{
     private Player mPlayer;
     //手牌数据
     private Hand mHand;
-    //当前显示手牌数量
-    private int mHandNum;
     //hit,stand,double按钮
     @BindView(R.id.bt_hit)
     Button mBtHit;
@@ -36,21 +36,38 @@ public class HandControllerView extends LinearLayout{
     //牌列表
     @BindView(R.id.card_list_view)
     CardListView mCardListView;
+    //胜负结果
+    @BindView(R.id.tv_result)
+    TextView mTvResult;
 
     public HandControllerView( Context context) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.hand_controller_view, this);
         ButterKnife.bind(this);
+        initButtons();
     }
 
     public void init(Player player,Hand hand){
         mPlayer = player;
         mHand = hand;
-        mHandNum = 0;
 
-        initButtons();
+        mTvResult.setVisibility(View.GONE);
         mCardListView.init(mHand);
         refreshList();
+    }
+
+    //设置结果
+    public void showResult(boolean result){
+        String resultMsg = "";
+        if (result){
+            //赢了
+            resultMsg = "Win";
+        }else {
+            //输了
+            resultMsg = "Lose";
+        }
+        mTvResult.setText(resultMsg);
+        mTvResult.setVisibility(View.VISIBLE);
     }
 
     //初始化按键监听器
@@ -60,6 +77,7 @@ public class HandControllerView extends LinearLayout{
             public void onClick(View view) {
                 GameManager gm = GameManager.getManager();
                 gm.hit(mPlayer,mHand);
+                mCardListView.refreshList();
             }
         });
         mBtStand.setOnClickListener(new OnClickListener() {
@@ -72,8 +90,14 @@ public class HandControllerView extends LinearLayout{
         mBtDouble.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                GameManager gm = GameManager.getManager();
-                gm.doublebet(mPlayer,mHand);
+                if (mPlayer.getChip() > mHand.getBet()){
+                    GameManager gm = GameManager.getManager();
+                    gm.doublebet(mPlayer,mHand);
+                    mCardListView.refreshList();
+                }
+                else {
+                    Toast.makeText(getContext(),"剩余筹码不足",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
