@@ -39,6 +39,8 @@ public class HandControllerView extends LinearLayout{
     //胜负结果
     @BindView(R.id.tv_result)
     TextView mTvResult;
+    //流程结束事件
+    Runnable mPlayerEnd;
 
     public HandControllerView( Context context) {
         super(context);
@@ -51,6 +53,9 @@ public class HandControllerView extends LinearLayout{
         mPlayer = player;
         mHand = hand;
 
+        mBtHit.setVisibility(VISIBLE);
+        mBtDouble.setVisibility(VISIBLE);
+        mBtStand.setVisibility(VISIBLE);
         mTvResult.setVisibility(View.GONE);
         mCardListView.init(mHand);
         refreshList();
@@ -67,7 +72,11 @@ public class HandControllerView extends LinearLayout{
             resultMsg = "Lose";
         }
         mTvResult.setText(resultMsg);
-        mTvResult.setVisibility(View.VISIBLE);
+    }
+
+    //设置玩家结束事件
+    public void setPlayerEnd(Runnable runnable){
+        mPlayerEnd = runnable;
     }
 
     //初始化按键监听器
@@ -78,6 +87,7 @@ public class HandControllerView extends LinearLayout{
                 GameManager gm = GameManager.getManager();
                 gm.hit(mPlayer,mHand);
                 mCardListView.refreshList();
+                isStand();
             }
         });
         mBtStand.setOnClickListener(new OnClickListener() {
@@ -85,6 +95,7 @@ public class HandControllerView extends LinearLayout{
             public void onClick(View view) {
                 GameManager gm = GameManager.getManager();
                 gm.stand(mPlayer,mHand);
+                isStand();
             }
         });
         mBtDouble.setOnClickListener(new OnClickListener() {
@@ -92,8 +103,9 @@ public class HandControllerView extends LinearLayout{
             public void onClick(View view) {
                 if (mPlayer.getChip() > mHand.getBet()){
                     GameManager gm = GameManager.getManager();
-                    gm.doublebet(mPlayer,mHand);
+                    gm.doubleBet(mPlayer,mHand);
                     mCardListView.refreshList();
+                    isStand();
                 }
                 else {
                     Toast.makeText(getContext(),"剩余筹码不足",Toast.LENGTH_SHORT).show();
@@ -105,5 +117,19 @@ public class HandControllerView extends LinearLayout{
     //更新牌列表
     public void refreshList() {
         mCardListView.refreshList();
+    }
+
+    //判断是否停牌
+    private void isStand(){
+        if(mHand.isStand()){
+            mTvResult.setText("Stand");
+            mBtHit.setVisibility(GONE);
+            mBtDouble.setVisibility(GONE);
+            mBtStand.setVisibility(GONE);
+            mTvResult.setVisibility(View.VISIBLE);
+            if (mPlayer.isStand()){
+                mPlayerEnd.run();
+            }
+        }
     }
 }

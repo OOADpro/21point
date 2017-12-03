@@ -34,7 +34,7 @@ public class Card {
     public int getmPoint() {
         return mPoint;
     }
-    public boolean isOpenOrClosed() {
+    public boolean isOpen() {
         return mOpenOrClosed;
     }
     void setOpenOrClosed(boolean mOpenOrClosed) {

@@ -7,11 +7,13 @@ import java.util.ArrayList;
  */
 
 public class Banker extends Person {
-    //手牌
-    private ArrayList<Hand> mHands;
 
     Banker() {
         mHands = new ArrayList<>();
+    }
+
+    public Hand getHand(){
+        return mHands.get(0);
     }
 
     //初始化手牌
@@ -23,9 +25,4 @@ public class Banker extends Person {
         mHands.add(hand);
     }
 
-    //获取手牌
-    @Override
-    public ArrayList<Hand> getHands(){
-        return mHands;
-    }
 }

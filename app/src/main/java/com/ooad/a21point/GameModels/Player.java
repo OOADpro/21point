@@ -11,10 +11,8 @@ public class Player extends Person {
     private int mChip;
     //是否可分牌
     private boolean mSplitFlag;
-    //手牌
-    private ArrayList<Hand> mHands;
 
-    protected Player(int chip){
+    Player(int chip){
         mSplitFlag = false;
         mHands = new ArrayList<>();
         if (chip > 0)
@@ -63,23 +61,9 @@ public class Player extends Person {
         }
     }
 
-    //是否停牌
-    public boolean isStand(){
-        for (Hand hand:
-             mHands) {
-            if (!hand.isStand())
-                return false;
-        }
-        return true;
-    }
 
     public boolean isSplit(){
         return  mSplitFlag;
     }
 
-    //获取手牌
-    @Override
-    public ArrayList<Hand> getHands(){
-        return mHands;
-    }
 }

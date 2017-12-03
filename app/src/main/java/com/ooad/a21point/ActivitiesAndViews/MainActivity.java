@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ooad.a21point.GameModels.Banker;
 import com.ooad.a21point.GameModels.GameManager;
 import com.ooad.a21point.GameModels.Hand;
 import com.ooad.a21point.GameModels.Player;
@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
         mBetControllerView.setMakeBet(new BetControllerView.MakeBet() {
             @Override
             public void makeBet(int bet) {
-                mGameManager.makebet(mPlayer,bet);
+                mGameManager.makeBet(mPlayer,bet);
                 beginNewTurn();
             }
         });
@@ -96,7 +96,12 @@ public class MainActivity extends Activity {
         });
 
         //玩家操作结束事件
-        
+        mPlayerHand.setPlayerEnd(new Runnable() {
+            @Override
+            public void run() {
+                bankerTurn();
+            }
+        });
     }
 
     //刷新分数
@@ -122,7 +127,7 @@ public class MainActivity extends Activity {
     //下注
     void beginNewTurn(){
         mPlayerHand.init(mPlayer, mPlayer.getHands().get(0));
-        mBankerHand.init(mGameManager.getBanker().getHands().get(0));
+        mBankerHand.init(mGameManager.getBanker().getHand());
         refreshChip();
 
         //设置控件可见性
@@ -136,15 +141,27 @@ public class MainActivity extends Activity {
 
     //玩家stand，庄家操作
     void bankerTurn(){
+        mGameManager.openCard(mGameManager.getBanker().getHand().getAllCards().get(1));
         mBankerHand.refreshAllCards();
-        mGameManager.doAiBanker();
-        mBankerHand.refreshList();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        sleep(1);
+        doAIBanker();
+    }
+
+    //模拟庄家
+    public void doAIBanker(){
+        ArrayList<Hand> hands = mPlayer.getHands();
+        Banker banker = mGameManager.getBanker();
+        Hand bankerHand = banker.getHand();
+        int targetPoint = 0;
+        if (hands.size() == 2 && hands.get(1).getBet() > hands.get(0).getBet())
+            targetPoint = 1;
+        targetPoint = hands.get(targetPoint).getPoint();
+        while (!bankerHand.isStand() && bankerHand.getPoint() < targetPoint){
+            mGameManager.hit(banker,bankerHand);
+            mBankerHand.refreshList();
+            sleep(1);
         }
-        //庄家操作完进行结算
+        mGameManager.stand(banker,bankerHand);
         judge();
     }
 
@@ -171,5 +188,11 @@ public class MainActivity extends Activity {
         beginNewTurn();
     }
 
-
+    private void sleep(int second){
+        try {
+            Thread.sleep(1000 * second);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -2,13 +2,10 @@ package com.ooad.a21point.ActivitiesAndViews;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.ooad.a21point.GameModels.Card;
-
-import java.io.InputStream;
 
 /**
  * Created by 10040 on 2017/12/2.
@@ -21,7 +18,7 @@ public class CardView extends ImageView {
         super(context);
 
         String uri = "file:///andr oid_asset/";
-        if (card.isOpenOrClosed()){
+        if (card.isOpen()){
             String color = "";
             switch (card.getmColor()){
                 case Card.CLUB:
