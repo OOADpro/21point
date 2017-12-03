@@ -21,8 +21,12 @@ public class Pile  {
     }
 
     public Card getCard(){
-        mLocation = mLocation +1;
-        return mCard.get(mLocation -1);
+        if(mLocation<52) {
+            mLocation = mLocation + 1;
+            return mCard.get(mLocation - 1);
+        }
+        else
+            return null;
     }
 
 
