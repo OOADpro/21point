@@ -112,7 +112,10 @@ public class BetControllerView extends LinearLayout {
         mBtMakeBet.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMakeBet.makeBet(mBetNum);
+                if(mBetNum > 0)
+                    mMakeBet.makeBet(mBetNum);
+                else
+                    Toast.makeText(getContext(),"必须下筹码",Toast.LENGTH_SHORT).show();
             }
         });
     }
