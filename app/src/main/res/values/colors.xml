@@ -3,4 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="bet">#33FF66</color>
+    <color name="button">#99FFCC</color>
+    <color name="app_bg">#CC9999</color>
 </resources>

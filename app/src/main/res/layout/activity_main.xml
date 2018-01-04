@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.ooad.a21point.ActivitiesAndViews.MainActivity">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:background="@drawable/timg"
+                                             tools:context="com.ooad.a21point.ActivitiesAndViews.MainActivity">
 
     <com.ooad.a21point.ActivitiesAndViews.HandControllerView
         android:id="@+id/player_hand_view"
@@ -16,7 +17,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.ooad.a21point.ActivitiesAndViews.HandControllerView
         android:id="@+id/player_split_hand_view"
@@ -32,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/banker_hand_view"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"/>
 
     <com.ooad.a21point.ActivitiesAndViews.BetControllerView
         android:id="@+id/bet_view"
@@ -44,7 +45,7 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.ooad.a21point.ActivitiesAndViews.CardListView
         android:id="@+id/banker_hand_view"
@@ -57,21 +58,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/tv_chip"
         android:layout_width="69dp"
         android:layout_height="36dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="1000"
+        android:textStyle="bold"
         android:textAlignment="center"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.328" />
+        app:layout_constraintVertical_bias="0.328"/>
 
     <Button
         android:id="@+id/bt_split"
@@ -79,12 +83,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="156dp"
         android:layout_marginEnd="6dp"
+        android:background="@drawable/button_style"
         android:text="Split"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/bt_begin"
@@ -94,10 +99,29 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/button_style"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
         android:text="Play a new Game"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="140dp"
+        android:background="@color/button"
+        android:gravity="center"
+        android:text="筹码："
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.075"/>
+
 </android.support.constraint.ConstraintLayout>

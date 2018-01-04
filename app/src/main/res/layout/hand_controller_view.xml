@@ -57,6 +57,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
+            android:background="@drawable/button_style"
             android:text="Hit"
             android:textAllCaps="false"/>
 
@@ -67,6 +68,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
+            android:background="@drawable/button_style"
             android:text="Stand"
             android:textAllCaps="false"/>
 
@@ -77,6 +79,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
+            android:background="@drawable/button_style"
             android:text="Double"
             android:textAllCaps="false"/>
 
@@ -87,6 +90,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
+            android:background="@drawable/button_style"
             android:text="Add Bet"
             android:textAllCaps="false"/>
     </LinearLayout>

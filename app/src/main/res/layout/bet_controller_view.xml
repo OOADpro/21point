@@ -14,34 +14,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:background="@drawable/bet_style"
             android:id="@+id/bet_10"
             android:text="10"
+            android:layout_marginEnd="3dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
         <Button
+            android:background="@drawable/bet_style"
             android:id="@+id/bet_20"
             android:text="20"
+            android:layout_marginEnd="3dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
         <Button
+            android:background="@drawable/bet_style"
             android:id="@+id/bet_50"
             android:text="50"
+            android:layout_marginEnd="3dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
         <Button
+            android:background="@drawable/bet_style"
             android:id="@+id/bet_100"
             android:text="100"
+            android:layout_marginEnd="3dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
         <Button
+            android:background="@drawable/bet_style"
             android:id="@+id/bet_200"
             android:text="200"
             android:layout_width="0dp"
@@ -50,8 +59,10 @@
     </LinearLayout>
 
     <Button
+        android:background="@drawable/button_style"
         android:id="@+id/bt_make_bet"
         android:text="Make Bet"
+        android:layout_marginTop="5dp"
         android:textAllCaps="false"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
