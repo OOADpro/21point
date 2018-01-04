@@ -1,5 +1,7 @@
 package com.ooad.a21point.GameModels;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -9,6 +11,7 @@ public class Pile  {
 
     private ArrayList<Card> mCard = new ArrayList<>();
     private int mLocation =0;
+    private ArrayList<Integer> list=new ArrayList<>();
 
     public Pile() {
         //初始化牌组中所有牌的点数与花色
@@ -25,16 +28,20 @@ public class Pile  {
             for (int j=2;j<=4;j++)
                 if ((i!=randPoint1 || j!=randColor1) && (i!=randPoint2 || j!=randColor2))
                     mCard.add(new Card(j,i));
+        for(int i=0;i<52;i++)
+            list.add(i);
         reset();
     }
 
     public Card getCard(){
         if(mLocation<37) {
             mLocation = mLocation + 1;
-            return mCard.get(mLocation - 1);
+            int mcardlocation=list.get(mLocation-1);
+            return mCard.get(mcardlocation);
         }
         else
-            return null;
+            reset();
+            return getCard();
     }
 
 
