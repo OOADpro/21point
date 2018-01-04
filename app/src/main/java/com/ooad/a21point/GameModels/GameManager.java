@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 public class GameManager {
-    public static final int WIN_POINT = 21;
+    public static final int WIN_POINT = 22;
     public static final int BLACK_JACK = 50;
     private static GameManager sGameManager;
     private ArrayList<Player> mPlayers;

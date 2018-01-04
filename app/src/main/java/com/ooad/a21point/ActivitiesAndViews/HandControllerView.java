@@ -63,13 +63,14 @@ public class HandControllerView extends ConstraintLayout{
         layoutInit(context);
     }
 
-    private void layoutInit(Context context){
+    private void layoutInit(final Context context){
         LayoutInflater.from(context).inflate(R.layout.hand_controller_view, this);
         ButterKnife.bind(this);
         mBetControllerView.setMakeBet(new BetControllerView.MakeBet() {
             @Override
             public void makeBet(int bet) {
                 GameManager.getManager().addBet(mPlayer, mHand, bet);
+                ((MainActivity)context).refreshChip();
                 mBetControllerView.setVisibility(View.GONE);
                 mCardListView.setVisibility(View.VISIBLE);
                 mBtHit.setVisibility(View.VISIBLE);
@@ -173,6 +174,7 @@ public class HandControllerView extends ConstraintLayout{
         if(mHand.isStand()){
             mTvResult.setText("Stand");
             mBtHit.setEnabled(false);
+            mBtAddBet.setVisibility(View.GONE);
             mBtHit.setVisibility(View.GONE);
             mBtDouble.setVisibility(View.GONE);
             mBtStand.setVisibility(View.GONE);

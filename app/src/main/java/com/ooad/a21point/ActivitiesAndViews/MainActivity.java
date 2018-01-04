@@ -111,7 +111,7 @@ public class MainActivity extends Activity {
     }
 
     //刷新分数
-    private void refreshChip(){
+    public void refreshChip(){
         mTvChip.setText(String.valueOf(mPlayer.getChip()));
     }
 
