@@ -18,15 +18,15 @@ import com.ooad.a21point.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by 10040 on 2017/12/2.
- */
 
 public class HandControllerView extends ConstraintLayout{
     //玩家
     private Player mPlayer;
     //手牌数据
     private Hand mHand;
+    //添加赌注
+    @BindView(R.id.bt_add)
+    Button mBtAddBet;
     //hit,stand,double按钮
     @BindView(R.id.bt_hit)
     Button mBtHit;
@@ -61,7 +61,6 @@ public class HandControllerView extends ConstraintLayout{
     }
 
     private void layoutInit(Context context){
-
         LayoutInflater.from(context).inflate(R.layout.hand_controller_view, this);
         ButterKnife.bind(this);
         initButtons();
@@ -76,6 +75,7 @@ public class HandControllerView extends ConstraintLayout{
         mBtHit.setVisibility(View.VISIBLE);
         mBtDouble.setVisibility(View.VISIBLE);
         mBtStand.setVisibility(View.VISIBLE);
+        mBtAddBet.setVisibility(View.VISIBLE);
         mTvResult.setVisibility(View.GONE);
         mCardListView.init(mHand);
         refreshList();
@@ -83,7 +83,7 @@ public class HandControllerView extends ConstraintLayout{
 
     //设置结果
     public void showResult(boolean result){
-        String resultMsg = "";
+        String resultMsg;
         if (result){
             //赢了
             resultMsg = "Win";

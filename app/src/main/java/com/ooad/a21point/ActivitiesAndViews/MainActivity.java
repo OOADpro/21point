@@ -161,7 +161,7 @@ public class MainActivity extends Activity {
 
     private void bankerHit(final Hand bankerHand){
         int point = bankerHand.getPoint();
-        if (point == Hand.BLACK_JACK || point < 17){
+        if (point == GameManager.BLACK_JACK || point < 17){
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

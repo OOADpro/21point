@@ -3,11 +3,10 @@ package com.ooad.a21point.GameModels;
 
 import java.util.ArrayList;
 
-/**
- * Created by 10040 on 2017/12/2.
- */
 
 public class GameManager {
+    public static final int WIN_POINT = 21;
+    public static final int BLACK_JACK = 50;
     private static GameManager sGameManager;
     private ArrayList<Player> mPlayers;
     private Banker mBanker;
@@ -46,7 +45,7 @@ public class GameManager {
 //    public void doAiBanker(Hand hand){                          //人工智能·庄家
 //        while (!hand.isStand()) {
 //            int bpoint = mBanker.getHands().get(0).getPoint();  //庄家的点数
-//            if (bpoint >= 21)
+//            if (bpoint >= WIN_POINT)
 //                hand.stand();
 //            else {
 //                for (Hand phand : mPlayers.get(0).getHands()) {
@@ -65,16 +64,25 @@ public class GameManager {
         player.getHands().get(0).setBet(bet);
     }
 
+    public void addBet(Player player, Hand hand,int addBet){
+        int chip = player.getChip();
+        int bet = hand.getBet();
+        if (addBet <= chip){
+            player.takeBet(addBet);
+            hand.setBet(bet + addBet);
+        }
+    }
+
     public void bankerHit(Hand hand){       //拿牌
         hand.getAnOpenCard();                       //get a opencard
-        if (hand.getPoint()>=21)                  //stand when point is over 21
+        if (hand.getPoint()>=WIN_POINT)                  //stand when point is over 21
             bankerStand(hand);
     }
 
     public void hit(Player player,Hand hand){       //拿牌
         player.setSplitFlag(false);
         hand.getAnOpenCard();                       //get a opencard
-        if (hand.getPoint()>21)                  //stand when point is over 21
+        if (hand.getPoint()>WIN_POINT)                  //stand when point is over 21
             stand(player,hand);
     }
 
@@ -94,32 +102,32 @@ public class GameManager {
     }
 
     public ArrayList<Hand> judge(){                 //判断胜负
-        ArrayList<Hand> winhand=new ArrayList<>();  // 新建赢家的手牌，初始为空
+        ArrayList<Hand> winHands=new ArrayList<>();  // 新建赢家的手牌，初始为空
         int bpoint= mBanker.getHands().get(0).getPoint();//庄家的点数
         boolean isBankerWinner = false;
 
         for (Player player:mPlayers) {
             for (Hand phand : player.getHands()) {
                 int ppoint = phand.getPoint();                //闲家的点数
-                if (ppoint == Hand.BLACK_JACK){
-                    winhand.add(phand);
-                    if (bpoint != Hand.BLACK_JACK)
+                if (ppoint == BLACK_JACK){
+                    winHands.add(phand);
+                    if (bpoint != BLACK_JACK)
                         player.winchip(phand.getBet() * 3); //闲家胜利，获得相应的筹码
                 }
-                else if (ppoint > 21 || bpoint == Hand.BLACK_JACK){
+                else if (ppoint > WIN_POINT || bpoint == BLACK_JACK){
                     isBankerWinner = true;
                 }
-                else if (bpoint > 21 || ppoint > bpoint) {
+                else if (bpoint > WIN_POINT || ppoint > bpoint) {
                     player.winchip(phand.getBet() * 2); //闲家胜利，获得相应的筹码
-                    winhand.add(phand);
+                    winHands.add(phand);
                 }
                 else if (ppoint < bpoint) //庄家胜利
                     isBankerWinner = true;
             }
         }
         if (isBankerWinner)
-            winhand.add(mBanker.getHand());
-        return winhand;
+            winHands.add(mBanker.getHand());
+        return winHands;
     }
 
     public void bankerStand(Hand hand){         //停牌
@@ -132,6 +140,7 @@ public class GameManager {
         if (!hand.isStand())
             hand.stand();
     }
+
     //翻开暗牌
     public void openCard(Card card){
         card.setOpenOrClosed(true);
