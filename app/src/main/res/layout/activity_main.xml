@@ -110,7 +110,8 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:visibility="gone"
+        android:id="@+id/tv_chip_des"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

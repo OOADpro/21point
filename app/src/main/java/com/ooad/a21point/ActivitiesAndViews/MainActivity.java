@@ -37,6 +37,9 @@ public class MainActivity extends Activity {
     //下注控件
     @BindView(R.id.bet_view)
     BetControllerView mBetControllerView;
+    //筹码
+    @BindView(R.id.tv_chip_des)
+    TextView mTvChipDes;
     //剩余分数显示
     @BindView(R.id.tv_chip)
     TextView mTvChip;
@@ -129,6 +132,7 @@ public class MainActivity extends Activity {
         mBankerHand.setVisibility(View.GONE);
         mBtSplit.setVisibility(View.GONE);
         mBtBegin.setVisibility(View.GONE);
+        mTvChipDes.setVisibility(View.VISIBLE);
     }
 
     //下注
