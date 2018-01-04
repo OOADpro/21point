@@ -132,6 +132,12 @@ public class HandControllerView extends ConstraintLayout{
                 }
             }
         });
+        mBtAddBet.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     //更新牌列表
