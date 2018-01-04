@@ -40,6 +40,9 @@ public class HandControllerView extends ConstraintLayout{
     //胜负结果
     @BindView(R.id.tv_result)
     TextView mTvResult;
+    //添加赌注
+    @BindView(R.id.add_bet)
+    BetControllerView mBetControllerView;
     //流程结束事件
     Runnable mPlayerEnd;
     //分牌按键
@@ -63,6 +66,18 @@ public class HandControllerView extends ConstraintLayout{
     private void layoutInit(Context context){
         LayoutInflater.from(context).inflate(R.layout.hand_controller_view, this);
         ButterKnife.bind(this);
+        mBetControllerView.setMakeBet(new BetControllerView.MakeBet() {
+            @Override
+            public void makeBet(int bet) {
+                GameManager.getManager().addBet(mPlayer, mHand, bet);
+                mBetControllerView.setVisibility(View.GONE);
+                mCardListView.setVisibility(View.VISIBLE);
+                mBtHit.setVisibility(View.VISIBLE);
+                mBtDouble.setVisibility(View.VISIBLE);
+                mBtStand.setVisibility(View.VISIBLE);
+                mBtAddBet.setVisibility(View.VISIBLE);
+            }
+        });
         initButtons();
     }
 
@@ -79,6 +94,7 @@ public class HandControllerView extends ConstraintLayout{
         mTvResult.setVisibility(View.GONE);
         mCardListView.init(mHand);
         refreshList();
+        mBetControllerView.setVisibility(View.GONE);
     }
 
     //设置结果
@@ -130,6 +146,18 @@ public class HandControllerView extends ConstraintLayout{
                 else {
                     Toast.makeText(getContext(),"剩余筹码不足",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        mBtAddBet.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBetControllerView.init(mPlayer);
+                mBetControllerView.setVisibility(View.VISIBLE);
+                mCardListView.setVisibility(View.GONE);
+                mBtHit.setVisibility(View.GONE);
+                mBtDouble.setVisibility(View.GONE);
+                mBtStand.setVisibility(View.GONE);
+                mBtAddBet.setVisibility(View.GONE);
             }
         });
     }
